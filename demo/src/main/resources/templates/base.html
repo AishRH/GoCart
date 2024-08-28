@@ -1,0 +1,167 @@
+<!-- this is the page that is rendering everywhere and is dynamically including other html where content needs to be changed -->
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:fragment="layout(content)"
+>
+  <head>
+    <meta charset="ISO-8859-1" />
+    <title>GoCart</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <!-- Start Navbar  -->
+    <nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"
+          ><i class="fa-solid fa-cart-shopping"></i>GoCart</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/"
+                ><i class="fa-solid fa-house"></i> Home</a
+              >
+            </li>
+            <!-- the href is for the controllers -->
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/products"
+                >Product</a
+              >
+            </li>
+
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Category
+              </a>
+              <ul class="dropdown-menu">
+                <li th:each="c:${categories}">
+                  <a
+                    class="dropdown-item"
+                    th:href="@{'/products?category='+${c.name}}"
+                    >[[${c.name}]]</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/login"
+                ><i class="fa-solid fa-right-to-bracket"></i> LOGIN</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/register"
+                >REGISTER</a
+              >
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/admin/"
+                >ADMIN</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+
+    <div th:replace="${content}"></div>
+
+    <!-- Start Footer -->
+
+    <footer style="background-color: #007bff; color: #fff; padding: 20px 0;">
+      <div style="display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+          <!-- Company Information -->
+          <div style="flex: 1; min-width: 200px; margin-bottom: 20px;">
+              <h4>About GoCart</h4>
+              <p style="line-height: 1.6;">
+                  GoCart is your one-stop shop for the best deals on electronics, fashion, and home essentials. Shop with confidence and enjoy fast delivery and excellent customer service.
+              </p>
+          </div>
+          
+          <!-- Useful Links -->
+          <div style="flex: 1; min-width: 200px; margin-bottom: 20px;">
+              <h4>Useful Links</h4>
+              <ul style="list-style: none; padding: 0;">
+                  <li><a href="#" style="color: #fff; text-decoration: none;">Home</a></li>
+                  <li><a href="#" style="color: #fff; text-decoration: none;">Shop</a></li>
+                  <li><a href="#" style="color: #fff; text-decoration: none;">About Us</a></li>
+                  <li><a href="#" style="color: #fff; text-decoration: none;">Contact Us</a></li>
+                  <li><a href="#" style="color: #fff; text-decoration: none;">FAQs</a></li>
+                  <li><a href="#" style="color: #fff; text-decoration: none;">Terms & Conditions</a></li>
+              </ul>
+          </div>
+          
+          <!-- Contact Information -->
+          <div style="flex: 1; min-width: 200px; margin-bottom: 20px;">
+              <h4>Contact Us</h4>
+              <p style="line-height: 1.6;">
+                  123 GoCart Lane,<br>
+                  E-commerce City, EC 12345<br>
+                  Email: support@gocart.com<br>
+                  Phone: +1 234 567 890
+              </p>
+          </div>
+  
+          <!-- Social Media Links -->
+          <div style="flex: 1; min-width: 200px; margin-bottom: 20px;">
+              <h4>Follow Us</h4>
+              <div>
+                  <a href="#" style="color: #fff; margin-right: 10px; text-decoration: none;">Facebook</a>
+                  <a href="#" style="color: #fff; margin-right: 10px; text-decoration: none;">Twitter</a>
+                  <a href="#" style="color: #fff; margin-right: 10px; text-decoration: none;">Instagram</a>
+                  <a href="#" style="color: #fff; text-decoration: none;">LinkedIn</a>
+              </div>
+          </div>
+      </div>
+  
+      <div style="text-align: center; padding-top: 10px;">
+          <p style="margin: 0;">&copy; 2024 GoCart. All rights reserved.</p>
+      </div>
+  </footer>
+
+    <!-- End Footer  -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
